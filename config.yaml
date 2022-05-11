@@ -1,0 +1,25 @@
+versions:
+  - caddy_version: '2.5.1'
+    is_major: true
+    is_latest: true
+    
+xcaddy_config:
+  version: '0.3.0'
+  checksums:
+    amd64: 889b63098037e4641cce5b355bd82535a4b6bbbc4aa16b8214108d0d847d288b52cd19017a477eedc9c066c2ec623310dd7909251888bc9432a7d7553ba9037e
+    arm32v6: decfc298b900b62ee16e0dc92a05d3b61926b961de5ee10138ce9fc6cde85dba732928d4481e02e4290750c85a92c4c24c1850045eb16c0d6a75781ff1506964
+    arm32v7: 99819ca7b2d37ab93e0b6af8f41dbc16dec5844c47b64993c1c1c2df0567e4abbff55ca6e9642231bd68a1789d0ebbef36822362f0c29d6dcdb01d55b3669cba
+    arm64v8: 24203b66ed47ba5aaa358a9e84c6a13f48737d8dc2902fdc7e2218409ac1bde9f043f0bbdf7b66697c9f9263cf1272a73784e51a26eca94ff37bcda4c21ece87
+  with:
+    - github.com/caddy-dns/loopia
+    - github.com/caddy-dns/glesys
+    - github.com/pteich/caddy-tlsconsul@v1.4.0
+
+# configuration for the stackbrew.tmpl template
+variants:
+  - dir: alpine
+    tags: [ "alpine" ]
+    shared_tags: [ "latest" ]
+    architectures: [ amd64, arm64v8, arm32v6, arm32v7 ]
+    base: FROM golang:1.18-alpine
+    

@@ -1,0 +1,22 @@
+{{- range $version := .config.versions }}
+	{{- $minor := $version.caddy_version | regexp.Replace `([0-9]+\.[0-9]+).*$` `$1` }}
+
+	{{- range $variant := $.config.variants }}
+		{{- $dir := filepath.Join $minor $variant.dir }}
+		{{- test.Assert (print "Expected " $dir " to be a directory") (file.IsDir $dir) }}
+		{{- if not (file.Exists (filepath.Join $dir ".skip")) }}
+			{{- $template := "dockerfile" }}
+			
+            {{- if eq "builder" $variant.dir -}}
+				{{ $template = "builder-dockerfile" -}}
+			{{ end -}}
+            {{- $ctxbuilder := dict "base" $variant.base "config" $version "xcaddy_config" $.config.xcaddy_config}}
+            {{- $builder := tmpl.Exec "builder-dockerfile" $ctxbuilder -}}
+			{{- $base := file.Read (filepath.Join $dir "Dockerfile.base") }}
+			{{- $ctx := dict "base" $base "config" $version "xcaddy_config" $.config.xcaddy_config "builder" $builder }}
+			{{- $outPath := filepath.Join $dir "Dockerfile" -}}
+Rendering {{ $outPath }} with template {{ $template }}...{{ "\n" -}}
+			{{- tmpl.Exec $template $ctx | file.Write $outPath -}}			
+		{{ end -}}
+	{{- end }}
+{{- end -}}
