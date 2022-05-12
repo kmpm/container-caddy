@@ -12,7 +12,6 @@ RUN set -eux; \
 		/usr/share/caddy
 
 COPY --from=builder /usr/bin/caddy /usr/bin/
-COPY /root /
 
 # set up nsswitch.conf for Go's "netgo" implementation
 # - https://github.com/docker-library/golang/blob/1eb096131592bcbc90aa3b97471811c798a93573/1.14/alpine3.12/Dockerfile#L9
@@ -27,14 +26,20 @@ LABEL org.opencontainers.image.title=Caddy
 LABEL org.opencontainers.image.description="a powerful, enterprise-ready, open source web server with automatic HTTPS written in Go"
 LABEL org.opencontainers.image.url=https://caddyserver.com
 LABEL org.opencontainers.image.documentation=https://caddyserver.com/docs
-LABEL org.opencontainers.image.vendor="Light Code Labs"
+#LABEL org.opencontainers.image.vendor="kmpm"
 LABEL org.opencontainers.image.licenses=Apache-2.0
 LABEL org.opencontainers.image.source="https://github.com/kmpm/container-caddy"
+
+COPY /root /
+RUN ls -lah /usr/bin/e*
+RUN chmod 0755 /usr/bin/entrypoint.sh
 
 EXPOSE 80
 EXPOSE 443
 EXPOSE 2019
 
-WORKDIR /srv
+WORKDIR /srv/
 
-CMD ["caddy", "run", "--config", "/etc/caddy/Caddyfile", "--adapter", "caddyfile"]
+ENTRYPOINT ["entrypoint.sh"]
+
+CMD ["caddy"]

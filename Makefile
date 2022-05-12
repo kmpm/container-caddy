@@ -9,7 +9,10 @@ gen-dockerfiles: render-dockerfiles.tmpl Dockerfile.tmpl Dockerfile.builder.tmpl
 		-f $<
 
 container:
-	docker build -f 2.5/alpine/Dockerfile ./ctx
+	docker build --progress plain -f 2.5/alpine/Dockerfile -t kmpm/caddy:2.5 -t kmpm/caddy:2.5.1-alpine -t kmpm/caddy:alpine -t kmpm/caddy:latest ./ctx
+
+push:
+	docker push --all-tags kmpm/caddy
 
 .PHONY: all gen-dockerfiles container
 .DELETE_ON_ERROR:
