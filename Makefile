@@ -1,7 +1,7 @@
-all: gen-dockerfiles
+all: gen
 
 
-gen-dockerfiles: render-dockerfiles.tmpl Dockerfile.tmpl Dockerfile.builder.tmpl */*/Dockerfile.base
+gen: render-dockerfiles.tmpl Dockerfile.tmpl Dockerfile.builder.tmpl */*/Dockerfile.base
 	@gomplate \
 		-t dockerfile=Dockerfile.tmpl \
 		-t builder-dockerfile=Dockerfile.builder.tmpl \
@@ -14,6 +14,6 @@ container:
 push:
 	docker push --all-tags kmpm/caddy
 
-.PHONY: all gen-dockerfiles container
+.PHONY: all gen container
 .DELETE_ON_ERROR:
 .SECONDARY:
