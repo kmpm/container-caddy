@@ -24,7 +24,7 @@ images:
   - name: "kmpm/caddy"
     token_env: DOCKER_TOKEN
     user_env: DOCKER_USER
-  - name: "ghcr.io/kmpm/container-caddy/caddy"
+  - name: "ghcr.io/kmpm/caddy"
     token_env: GITHUB_TOKEN
     user_env: GITHUB_USER
 

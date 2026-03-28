@@ -7,9 +7,9 @@ function build() {
 	--tag kmpm/caddy:latest \
 	--tag kmpm/caddy:2.11.2 \
 	--tag kmpm/caddy:2.11 \
-	--tag ghcr.io/kmpm/container-caddy/caddy:latest \
-	--tag ghcr.io/kmpm/container-caddy/caddy:2.11.2 \
-	--tag ghcr.io/kmpm/container-caddy/caddy:2.11 \
+	--tag ghcr.io/kmpm/caddy:latest \
+	--tag ghcr.io/kmpm/caddy:2.11.2 \
+	--tag ghcr.io/kmpm/caddy:2.11 \
 	./ctx
 }
 
