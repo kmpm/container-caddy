@@ -6,7 +6,7 @@
 		{{- test.Assert (print "Expected " $dir " to be a directory") (file.IsDir $dir) }}
 		{{- if not (file.Exists (filepath.Join $dir ".skip")) }}
 			{{- $template := "dockerfile" }}
-			
+
             {{- if eq "builder" $variant.dir -}}
 				{{ $template = "builder-dockerfile" -}}
 			{{ end -}}
@@ -16,7 +16,12 @@
 			{{- $ctx := dict "base" $base "config" $version "xcaddy_config" $.config.xcaddy_config "builder" $builder }}
 			{{- $outPath := filepath.Join $dir "Dockerfile" -}}
 Rendering {{ $outPath }} with template {{ $template }}...{{ "\n" -}}
-			{{- tmpl.Exec $template $ctx | file.Write $outPath -}}			
+			{{- tmpl.Exec $template $ctx | file.Write $outPath -}}
+			{{- $template := "buildfile" }}
+			{{- $ctx := dict "version" $version.caddy_version "minor" $minor "images" $.config.images }}
+			{{- $outPath := "build.sh" -}}
+Rendering {{ $outPath }} with template {{ $template }}...{{ "\n" -}}
+			{{- tmpl.Exec $template $ctx | file.Write $outPath -}}
 		{{ end -}}
 	{{- end }}
 {{- end -}}

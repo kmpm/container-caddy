@@ -1,25 +1,31 @@
 versions:
-  - caddy_version: '2.5.1'
+  - caddy_version: '2.11.2'
     is_major: true
     is_latest: true
-    
+
 xcaddy_config:
-  version: '0.3.0'
+  version: '0.4.5'
   checksums:
-    amd64: 889b63098037e4641cce5b355bd82535a4b6bbbc4aa16b8214108d0d847d288b52cd19017a477eedc9c066c2ec623310dd7909251888bc9432a7d7553ba9037e
-    arm32v6: decfc298b900b62ee16e0dc92a05d3b61926b961de5ee10138ce9fc6cde85dba732928d4481e02e4290750c85a92c4c24c1850045eb16c0d6a75781ff1506964
-    arm32v7: 99819ca7b2d37ab93e0b6af8f41dbc16dec5844c47b64993c1c1c2df0567e4abbff55ca6e9642231bd68a1789d0ebbef36822362f0c29d6dcdb01d55b3669cba
-    arm64v8: 24203b66ed47ba5aaa358a9e84c6a13f48737d8dc2902fdc7e2218409ac1bde9f043f0bbdf7b66697c9f9263cf1272a73784e51a26eca94ff37bcda4c21ece87
+    amd64: edea47d552fd9ac0a533386a72acaa95733ce734f347c11e5513469b5dc0eec0a62a6e21cfa93a83ab00b2dad72e0ee0b9bdf267a9654235f70d4c934739a15b
+    arm64v8: 2933968a6e759a0406dc864000960fe0e605db9f0fe0662ce245897eaa5b529e322d1b14c2b98463a95e13f1dfd85432541b41f459a237daedb8c68a8f6a5bb1
   with:
     - github.com/caddy-dns/loopia
     - github.com/caddy-dns/glesys
-    - github.com/pteich/caddy-tlsconsul@v1.4.0
 
 # configuration for the stackbrew.tmpl template
 variants:
   - dir: alpine
     tags: [ "alpine" ]
     shared_tags: [ "latest" ]
-    architectures: [ amd64, arm64v8, arm32v6, arm32v7 ]
-    base: FROM golang:1.18-alpine
-    
+    architectures: [ amd64, arm64v8 ]
+    base: FROM golang:1.26-alpine
+
+images:
+  - name: "kmpm/caddy"
+    token_env: DOCKERHUB_TOKEN
+    user_env: DOCKERHUB_USER
+  - name: "ghcr.io/kmpm/container-caddy/caddy"
+    token_env: GITHUB_TOKEN
+    user_env: GITHUB_USER
+
+

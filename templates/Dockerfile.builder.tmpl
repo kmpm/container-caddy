@@ -4,18 +4,16 @@ RUN apk add --no-cache \
     git \
     ca-certificates
 
-ENV XCADDY_VERSION v{{ .xcaddy_config.version }}
+ENV XCADDY_VERSION=v{{ .xcaddy_config.version }}
 # Configures xcaddy to build with this version of Caddy
-ENV CADDY_VERSION v{{ .config.caddy_version }}
+ENV CADDY_VERSION=v{{ .config.caddy_version }}
 # Configures xcaddy to not clean up post-build (unnecessary in a container)
-ENV XCADDY_SKIP_CLEANUP 1
+ENV XCADDY_SKIP_CLEANUP=1
 
 RUN set -eux; \
 	apkArch="$(apk --print-arch)"; \
 	case "$apkArch" in \
 		x86_64)  binArch='amd64'; checksum='{{ .xcaddy_config.checksums.amd64 }}' ;; \
-		armhf)   binArch='armv6'; checksum='{{ .xcaddy_config.checksums.arm32v6 }}' ;; \
-		armv7)   binArch='armv7'; checksum='{{ .xcaddy_config.checksums.arm32v7 }}' ;; \
 		aarch64) binArch='arm64'; checksum='{{ .xcaddy_config.checksums.arm64v8 }}' ;; \
 		*) echo >&2 "error: unsupported architecture ($apkArch)"; exit 1 ;;\
 	esac; \
@@ -27,7 +25,7 @@ RUN set -eux; \
 
 WORKDIR /usr/bin
 
-RUN xcaddy build {{ range .xcaddy_config.with }}\ 
+RUN xcaddy build {{ range .xcaddy_config.with }}\
 	--with {{.}}{{end}}
 
 # end builder

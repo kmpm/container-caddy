@@ -1,19 +1,24 @@
+
+TEMPLATES = render-dockerfiles.tmpl $(wildcard templates/*.tmpl)
+
 all: gen
 
 
-gen: render-dockerfiles.tmpl Dockerfile.tmpl Dockerfile.builder.tmpl */*/Dockerfile.base
+gen: $(TEMPLATES) */*/Dockerfile.base
 	@gomplate \
-		-t dockerfile=Dockerfile.tmpl \
-		-t builder-dockerfile=Dockerfile.builder.tmpl \
+		-t dockerfile=templates/Dockerfile.tmpl \
+		-t builder-dockerfile=templates/Dockerfile.builder.tmpl \
+		-t buildfile=templates/buildfile.sh.tmpl \
 		-c config=./config.yaml \
 		-f $<
 
-container:
-	docker build --progress plain -f 2.5/alpine/Dockerfile -t kmpm/caddy:2.5 -t kmpm/caddy:2.5.1-alpine -t kmpm/caddy:alpine -t kmpm/caddy:latest ./ctx
+build:
+
+	./build.sh
 
 push:
 	docker push --all-tags kmpm/caddy
 
-.PHONY: all gen container
+.PHONY: all gen build push
 .DELETE_ON_ERROR:
 .SECONDARY:
