@@ -22,8 +22,8 @@ variants:
 
 images:
   - name: "kmpm/caddy"
-    token_env: DOCKERHUB_TOKEN
-    user_env: DOCKERHUB_USER
+    token_env: DOCKER_TOKEN
+    user_env: DOCKER_USER
   - name: "ghcr.io/kmpm/container-caddy/caddy"
     token_env: GITHUB_TOKEN
     user_env: GITHUB_USER

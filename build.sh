@@ -16,9 +16,9 @@ function build() {
 
 
 function publish() {
-	if [ ! -z "$DOCKERHUB_TOKEN" ]; then
-		echo "Logging in to Docker registry for kmpm/caddy..."
-		echo "$DOCKERHUB_TOKEN" | docker login --username $DOCKERHUB_USER --password-stdin $(echo kmpm/caddy | cut -d'/' -f1)
+	if [ ! -z "$DOCKER_TOKEN" ]; then
+		# echo "Logging in to Docker registry for kmpm/caddy..."
+		# echo "$DOCKER_TOKEN" | docker login --username $DOCKER_USER --password-stdin $(echo kmpm/caddy | cut -d'/' -f1)
 		set -x
 		docker push kmpm/caddy:latest
 		docker push kmpm/caddy:2.11.2
@@ -26,8 +26,8 @@ function publish() {
 		set +x
 	fi
 	if [ ! -z "$GITHUB_TOKEN" ]; then
-		echo "Logging in to Docker registry for ghcr.io/kmpm/container-caddy/caddy..."
-		echo "$GITHUB_TOKEN" | docker login --username $GITHUB_USER --password-stdin $(echo ghcr.io/kmpm/container-caddy/caddy | cut -d'/' -f1)
+		# echo "Logging in to Docker registry for ghcr.io/kmpm/container-caddy/caddy..."
+		# echo "$GITHUB_TOKEN" | docker login --username $GITHUB_USER --password-stdin $(echo ghcr.io/kmpm/container-caddy/caddy | cut -d'/' -f1)
 		set -x
 		docker push ghcr.io/kmpm/container-caddy/caddy:latest
 		docker push ghcr.io/kmpm/container-caddy/caddy:2.11.2
