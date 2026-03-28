@@ -1,30 +1,37 @@
 #!/bin/env bash
 {{- $version := .version -}}
 {{- $minor := .minor }}
+set -e
 
-docker build --file {{.minor}}/alpine/Dockerfile \
- {{- range .images }}
- --tag {{.name}}:latest \
- --tag {{.name}}:{{ $version }} \
- --tag {{.name}}:{{ $minor }} \
- {{- end }}
- ./ctx
+DO_PUBLISH=$1
+
+function build() {
+	docker build --file {{.minor}}/alpine/Dockerfile \
+	{{- range .images }}
+	--tag {{.name}}:latest \
+	--tag {{.name}}:{{ $version }} \
+	--tag {{.name}}:{{ $minor }} \
+	{{- end }}
+	./ctx
+}
 
 
-if [ -z "$GITHUB_TOKEN" ]; then
-  echo "GITHUB_TOKEN is not set. Skipping pushing to GitHub Container Registry."
-  exit 0
+function publish() {
+	{{- range .images }}
+	if [ ! -z "${{.token_env}}" ]; then
+		echo "Logging in to Docker registry for {{.name}}..."
+		echo "${{.token_env}}" | docker login --username ${{.user_env}} --password-stdin $(echo {{.name}} | cut -d'/' -f1)
+		set -x
+		docker push {{.name}}:latest
+		docker push {{.name}}:{{ $version }}
+		docker push {{.name}}:{{ $minor }}
+		set +x
+	fi
+	{{- end }}
+}
+
+
+build
+if [ "$DO_PUBLISH" == "publish" ]; then
+  publish
 fi
-
-
-{{- range .images }}
-if [ ! -z "${{.token_env}}" ]; then
-	echo "Logging in to Docker registry for {{.name}}..."
-	echo "${{.token_env}}" | docker login --username ${{.user_env}} --password-stdin $(echo {{.name}} | cut -d'/' -f1)
-	set -x
-	docker push {{.name}}:latest
-	docker push {{.name}}:{{ $version }}
-	docker push {{.name}}:{{ $minor }}
-	set +x
-fi
-{{- end }}
