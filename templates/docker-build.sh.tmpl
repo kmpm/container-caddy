@@ -1,0 +1,18 @@
+#!/bin/env bash
+{{- $version := .version -}}
+{{- $minor := .minor }}
+set -e
+
+
+function build() {
+	docker build --file {{.minor}}/alpine/Dockerfile \
+	{{- range .images }}
+	--tag {{.name}}:latest \
+	--tag {{.name}}:{{ $version }} \
+	--tag {{.name}}:{{ $minor }} \
+	{{- end }}
+	./ctx
+}
+
+
+build

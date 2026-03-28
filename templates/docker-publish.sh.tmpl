@@ -3,18 +3,6 @@
 {{- $minor := .minor }}
 set -e
 
-DO_PUBLISH=$1
-
-function build() {
-	docker build --file {{.minor}}/alpine/Dockerfile \
-	{{- range .images }}
-	--tag {{.name}}:latest \
-	--tag {{.name}}:{{ $version }} \
-	--tag {{.name}}:{{ $minor }} \
-	{{- end }}
-	./ctx
-}
-
 
 function publish() {
 	{{- range .images }}
@@ -30,8 +18,4 @@ function publish() {
 	{{- end }}
 }
 
-
-build
-if [ "$DO_PUBLISH" == "publish" ]; then
-  publish
-fi
+publish

@@ -36,11 +36,16 @@ jobs:
         username: ${{ secrets.DOCKER_USER }}
         password: ${{ secrets.DOCKER_TOKEN }}
 
-    - name: Build And Optionally Publish Docker Images
+    - name: Build Docker Images
       shell: bash
       run: |
         if [[ "${{ github.event_name }}" == "push" && "${{ github.ref }}" == "refs/heads/main" ]]; then
           ./build.sh publish
         else
-          ./build.sh
+          ./docker-build.sh
         fi
+    - name: Publish Docker Images
+      if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+      shell: bash
+      run: |
+        ./docker-publish.sh

@@ -1,19 +1,6 @@
 #!/bin/env bash
 set -e
 
-DO_PUBLISH=$1
-
-function build() {
-	docker build --file 2.11/alpine/Dockerfile \
-	--tag kmpm/caddy:latest \
-	--tag kmpm/caddy:2.11.2 \
-	--tag kmpm/caddy:2.11 \
-	--tag ghcr.io/kmpm/container-caddy/caddy:latest \
-	--tag ghcr.io/kmpm/container-caddy/caddy:2.11.2 \
-	--tag ghcr.io/kmpm/container-caddy/caddy:2.11 \
-	./ctx
-}
-
 
 function publish() {
 	if [ ! -z "$DOCKER_TOKEN" ]; then
@@ -36,8 +23,4 @@ function publish() {
 	fi
 }
 
-
-build
-if [ "$DO_PUBLISH" == "publish" ]; then
-  publish
-fi
+publish

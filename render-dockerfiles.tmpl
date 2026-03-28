@@ -19,7 +19,12 @@ Rendering {{ $outPath }} with template {{ $template }}...{{ "\n" -}}
 			{{- tmpl.Exec $template $ctx | file.Write $outPath -}}
 			{{- $template := "buildfile" }}
 			{{- $ctx := dict "version" $version.caddy_version "minor" $minor "images" $.config.images }}
-			{{- $outPath := "build.sh" -}}
+			{{- $outPath := "docker-build.sh" -}}
+Rendering {{ $outPath }} with template {{ $template }}...{{ "\n" -}}
+			{{- tmpl.Exec $template $ctx | file.Write $outPath -}}
+			{{- $template := "publishfile" }}
+			{{- $ctx := dict "version" $version.caddy_version "minor" $minor "images" $.config.images }}
+			{{- $outPath := "docker-publish.sh" -}}
 Rendering {{ $outPath }} with template {{ $template }}...{{ "\n" -}}
 			{{- tmpl.Exec $template $ctx | file.Write $outPath -}}
 		{{ end -}}
