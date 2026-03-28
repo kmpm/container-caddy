@@ -7,3 +7,8 @@ Repository in https://github.com/kmpm/container-caddy
 - https://github.com/pteich/caddy-tlsconsul
 - https://github.com/caddy-dns/loopia
 - https://github.com/caddy-dns/glesys
+
+
+
+## Develop
+- Needs https://docs.gomplate.ca/
