@@ -11,7 +11,10 @@ Repository in https://github.com/kmpm/container-caddy
 
 
 ## Develop
-- Needs https://docs.gomplate.ca/
+Needs https://docs.gomplate.ca/
+
+- To generate files `make gen`
+- To build using generated files `make build`
 
 
 ## Using
@@ -31,3 +34,18 @@ net.core.rmem_max = 7500000
 net.core.wmem_max = 7500000
 
 ```
+
+### Environment variables
+
+- `CADDY_CONFIG` path to config file. Default: `/etc/caddy/Caddyfile`
+- `CADDY_ENVFILE` if the file exists caddy will load it as environment variables. Default: `/etc/caddy/env`
+- `CADDY_ADAPTER` what kind of adapter needed to read CADDY_CONFIG. Default: `caddyfile`
+- `CADDY_USER` username to run the caddy process. Will be created at runtime Default `caddy`
+- `CADDY_GID` id of the group. Default: `1000`
+- `CADDY_UID` id of the user. Default: `1000`
+
+See [convetions, file locations](https://caddyserver.com/docs/conventions#file-locations) for 
+details of these.
+- `XDG_DATA_HOME` Default: `/data`
+- `XDG_CONFIG_HOME` Default: `/config` 
+
