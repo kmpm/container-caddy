@@ -14,11 +14,10 @@ gen: $(TEMPLATES) */*/Dockerfile.base
 		-f $<
 
 build:
-
-	./build.sh
+	./docker-build.sh
 
 push:
-	docker push --all-tags kmpm/caddy
+	./docker-publish.sh
 
 .PHONY: all gen build push
 .DELETE_ON_ERROR:

@@ -34,7 +34,9 @@ RUN xcaddy build \
 
 FROM alpine:3.23
 
-RUN apk add --no-cache ca-certificates mailcap
+RUN apk --no-cache add ca-certificates mailcap \
+	&& update-ca-certificates \
+    && rm -rf /var/cache/apk/*
 
 RUN set -eux; \
 	mkdir -p \
