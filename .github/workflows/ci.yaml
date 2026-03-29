@@ -48,9 +48,9 @@ jobs:
           kmpm/caddy
         tags: |
           type=match,pattern=v(.*),group=1
-          type=match,pattern=v(\d.\d.\d).*,group=1
-          type=match,pattern=v(\d.\d).*,group=1
-          type=match,pattern=v(\d).*,group=1
+          type=match,pattern=v(\d+\.\d+\.\d+).*,group=1
+          type=match,pattern=v(\d+\.\d+).*,group=1
+          type=match,pattern=v(\d+).*,group=1
           type=ref,event=branch
           type=ref,event=pr
           type=sha
