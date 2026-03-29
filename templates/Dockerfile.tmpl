@@ -2,7 +2,7 @@
 
 {{ .base | strings.TrimSpace }}
 
-RUN apk --no-cache add ca-certificates mailcap \
+RUN apk --no-cache add ca-certificates nss-tools mailcap \
 	&& update-ca-certificates \
     && rm -rf /var/cache/apk/*
 
