@@ -34,7 +34,7 @@ RUN xcaddy build \
 
 FROM alpine:3.23
 
-RUN apk --no-cache add ca-certificates nss-tools mailcap \
+RUN apk --no-cache add ca-certificates nss-tools mailcap gosu \
 	&& update-ca-certificates \
     && rm -rf /var/cache/apk/*
 
