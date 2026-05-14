@@ -25,3 +25,4 @@ smoketest:
 .PHONY: all gen build push smoketest
 .DELETE_ON_ERROR:
 .SECONDARY:
+

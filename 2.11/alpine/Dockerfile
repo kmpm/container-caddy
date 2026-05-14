@@ -31,10 +31,11 @@ RUN xcaddy build \
 
 # end builder
 
-
+# start container
+# alpine/Dockerfile.base
 FROM alpine:3.23
 
-RUN apk --no-cache add ca-certificates nss-tools mailcap gosu \
+RUN apk --no-cache add ca-certificates nss-tools mailcap gosu curl wget \
 	&& update-ca-certificates \
     && rm -rf /var/cache/apk/*
 

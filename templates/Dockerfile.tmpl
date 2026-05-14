@@ -1,8 +1,8 @@
 {{ .builder }}
-
+# start container
 {{ .base | strings.TrimSpace }}
 
-RUN apk --no-cache add ca-certificates nss-tools mailcap gosu \
+RUN apk --no-cache add ca-certificates nss-tools mailcap gosu curl wget \
 	&& update-ca-certificates \
     && rm -rf /var/cache/apk/*
 
