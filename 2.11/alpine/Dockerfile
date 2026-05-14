@@ -6,7 +6,7 @@ RUN apk add --no-cache \
 
 ENV XCADDY_VERSION=v0.4.5
 # Configures xcaddy to build with this version of Caddy
-ENV CADDY_VERSION=v2.11.2
+ENV CADDY_VERSION=v2.11.3
 # Configures xcaddy to not clean up post-build (unnecessary in a container)
 ENV XCADDY_SKIP_CLEANUP=1
 
@@ -55,7 +55,7 @@ RUN test -e /etc/nsswitch.conf || echo 'hosts: files dns' > /etc/nsswitch.conf
 ENV XDG_CONFIG_HOME=/config
 ENV XDG_DATA_HOME=/data
 
-LABEL org.opencontainers.image.version=v2.11.2
+LABEL org.opencontainers.image.version=v2.11.3
 LABEL org.opencontainers.image.title=Caddy
 LABEL org.opencontainers.image.description="a powerful, enterprise-ready, open source web server with automatic HTTPS written in Go"
 LABEL org.opencontainers.image.url=https://caddyserver.com

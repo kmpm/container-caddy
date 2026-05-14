@@ -8,7 +8,7 @@ function publish() {
 		# echo "$DOCKER_TOKEN" | docker login --username $DOCKER_USER --password-stdin $(echo kmpm/caddy | cut -d'/' -f1)
 		set -x
 		docker push kmpm/caddy:latest
-		docker push kmpm/caddy:2.11.2
+		docker push kmpm/caddy:2.11.3
 		docker push kmpm/caddy:2.11
 		set +x
 	fi
@@ -17,7 +17,7 @@ function publish() {
 		# echo "$GITHUB_TOKEN" | docker login --username $GITHUB_USER --password-stdin $(echo ghcr.io/kmpm/caddy | cut -d'/' -f1)
 		set -x
 		docker push ghcr.io/kmpm/caddy:latest
-		docker push ghcr.io/kmpm/caddy:2.11.2
+		docker push ghcr.io/kmpm/caddy:2.11.3
 		docker push ghcr.io/kmpm/caddy:2.11
 		set +x
 	fi

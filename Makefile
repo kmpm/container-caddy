@@ -19,6 +19,9 @@ build:
 push:
 	./docker-publish.sh
 
-.PHONY: all gen build push
+smoketest:
+	docker run --rm -it -p 127.0.0.1:8085:80 kmpm/caddy:latest
+
+.PHONY: all gen build push smoketest
 .DELETE_ON_ERROR:
 .SECONDARY:

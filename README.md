@@ -13,6 +13,25 @@ Repository in https://github.com/kmpm/container-caddy
 ## Develop
 Needs https://docs.gomplate.ca/
 
+```shell
+# install gomplate
+go install github.com/hairyhenderson/gomplate/v5/cmd/gomplate@latest
+gomplate --help
+
+# modify the templates, files etc
+
+# generate files from templates
+make gen
+
+# make images
+make build
+
+# do local testing and repeat until happy
+
+# push to github
+# generate release in github.
+...
+
 - To generate files `make gen`
 - To build using generated files `make build`
 
